@@ -13,6 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/**
+ * Login Display Pages
+ */
+Route::get('/login', 'Auth\LoginController@redirectToProvider')->name('login');
+Route::get('/callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+/**
+ * Secure Display Pages
+ */
+Route::group(['middleware' => ['auth']], function(){
+    /**
+     * Dashboard Controller Display pages
+     */
+    Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('/dashboard');
+
+    /**
+     * Scopes Controller display pages
+     */
+    Route::get('/scopes/select', 'Auth\EsiScopeController@displayScopes');
+    Route::post('redirectToProvider', 'Auth\EsiScopeController@redirectToProvider');
+    
 });
