@@ -274,7 +274,7 @@ class LoginController extends Controller
         $configuration->cache = NullCache::class;
 
         //Setup the user array
-        $haulers = AllowedLogin::where(['login_type' => 'Hauler'])->pluck('entity_id')->toArray();
+        $haulers = AllowedLogin::where(['login_type' => 'Wormholer'])->pluck('entity_id')->toArray();
 
         // Instantiate a new ESI instance
         $esi = new Eseye();
